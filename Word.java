@@ -25,4 +25,14 @@ public class Word {
     public void setWord_explain(String word_explain) {
         this.word_explain = word_explain;
     }
+
+    /**
+     * ham so sanh tu hien tai voi 1 tu khac dc nhap vao
+     * @param word tu can so sanh
+     * @return 0 neu 2 tu giong, 1 neu tu them vao dung sau, -1 neu tu them vao dung truoc
+     */
+
+    public int compareTo(Word word) {
+      return this.getWord_target().compareTo(word.word_target);
+    }
 }

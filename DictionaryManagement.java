@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 import java.lang.String;
 
@@ -7,7 +9,7 @@ public class DictionaryManagement {
     Word word = new Word();
 
     /**
-     * them 1 word tu file vao list
+     * them word tu file vao list
      */
 
     public void insertFromFile() {
@@ -53,18 +55,56 @@ public class DictionaryManagement {
     }
 
     /**
-     * tim nghia cua 1 tu
+     * ham them 1 tu vao dictionary va sap xep lai dictionary.
+     * @param word tu can them vao
+     */
+    public void insertWordToDictionaries(Word word) {
+        dictionary.wordList.add(word);
+        Collections.sort(dictionary.wordList,Word::compareTo);
+    }
+
+
+    /**
+     * tim nghia cua 1 tu su dung tim kiem nhi phan
      * @param wordTarget tu can tim
      * @return nghia cua tu
      */
-    public String dictionaryLookup(String wordTarget) {
-        String wordExplain = "";
-        for (int i = 0; i < dictionary.wordList.size(); i++) {
-            if (wordTarget == dictionary.wordList.get(i).getWord_target()) {
-                wordExplain = dictionary.wordList.get(i).getWord_explain();
-                break;
+    public int dictionaryLookup(String wordTarget) {
+        int left = 0;
+        int right = dictionary.wordList.size();
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            String temp = dictionary.wordList.get(mid).getWord_target();
+            if (wordTarget == temp) {
+                return mid;
+            } else {
+                if (wordTarget.compareTo(temp) > 0) {
+                    left = mid +1;
+                } else {
+                    right = mid -1;
+                }
             }
         }
-        return wordExplain;
+        return -1;
+    }
+
+    /**
+     * xoa 1 tu khoi dictionaries
+     * @param wordTarget tu can xoa
+     */
+    public void removeWord(String wordTarget) {
+        int index = dictionaryLookup(wordTarget);
+        final Word remove = dictionary.wordList.remove(index);
+    }
+
+    /**
+     * ham de sua nghia cua 1 tu
+     * @param wordTarget tu can sua nghia
+     * @param wordExplain nghia moi
+     */
+    public void editWordExplain(String wordTarget, String wordExplain) {
+        int index = dictionaryLookup(wordTarget);
+        Word _word = new Word(wordTarget, wordExplain);
+        dictionary.wordList.set(index, _word);
     }
 }
