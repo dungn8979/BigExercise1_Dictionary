@@ -3,8 +3,16 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * class quan li tu dien
+ */
 public class DictionaryManagement {
     Dictionary dictionary = new Dictionary();
+
+    /**
+     * nhap tu dien tu file
+     * @throws FileNotFoundException
+     */
 
     public void  insertFromFile() throws FileNotFoundException {
         File file = new File("dictionary.txt");
@@ -25,6 +33,11 @@ public class DictionaryManagement {
         scanner.close();
     }
 
+    /**
+     * xuat tu dien ra file
+     * @throws IOException
+     */
+
     public void exportToFile() throws IOException {
         File file = new File("directories.txt");
         OutputStream outputStream = new FileOutputStream(file);
@@ -36,11 +49,21 @@ public class DictionaryManagement {
         outputStreamWriter.flush();
     }
 
+    /**
+     * them tu vao dictionary
+     * @param word
+     */
+
     public void insertWordToDictionaries(Word word) {
         dictionary.wordList.add(word);
         Collections.sort(dictionary.wordList,Word::compareTo);
     }
 
+    /**
+     * tim kiem theo wordTargat
+     * @param wordTarget
+     * @return index
+     */
     public int dictionaryLookup(String wordTarget) {
         int left = 0;
         int right = dictionary.wordList.size() - 1;
@@ -60,17 +83,29 @@ public class DictionaryManagement {
         return -1;
     }
 
+    /**
+     * xoa tu khoi dictionary
+     * @param wordTarget
+     */
     public void removeWord(String wordTarget) {
         int index = dictionaryLookup(wordTarget);
         dictionary.wordList.remove(index);
     }
 
+    /**
+     * sua nghia cua tu
+     * @param wordTarget
+     * @param wordExplain
+     */
     public void editWordExplain(String wordTarget, String wordExplain) {
         int index = dictionaryLookup(wordTarget);
         Word _word = new Word(wordTarget, wordExplain);
         dictionary.wordList.set(index, _word);
     }
 
+    /**
+     * show all
+     */
     public void showWordList() {
         for (Word item: dictionary.wordList) {
             System.out.println(item.getWord_target()+" "+item.getWord_explain());
