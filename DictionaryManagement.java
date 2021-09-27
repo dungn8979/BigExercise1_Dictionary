@@ -111,4 +111,17 @@ public class DictionaryManagement {
             System.out.println(item.getWord_target()+" "+item.getWord_explain());
         }
     }
+
+    /**
+     * ham search nhe nhe
+     * @param search
+     * @return list tu search duoc
+     */
+    public List<Word> dictionarySearch(String search) {
+        List<Word> matchElement = dictionary.wordList.stream()
+                .filter(str -> str.getWord_target().contains(search))
+                .collect(Collectors.toList());
+        return matchElement;
+    }
+
 }
