@@ -2,6 +2,12 @@ import java.io.*;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Locale;
+import javax.speech.Engine;
+import javax.speech.Central;
+import javax.speech.EngineException;
+import javax.speech.synthesis.SynthesizerModeDesc;
+import javax.speech.synthesis.Synthesizer;
 
 /**
  * class quan li tu dien
@@ -124,4 +130,22 @@ public class DictionaryManagement {
         return matchElement;
     }
 
+    /**
+     * phat am.
+     * @param s tu can doc
+     */
+    public void speakEnglish(String s) {
+        try {
+            System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+            Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
+            Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+            synthesizer.allocate();
+            synthesizer.resume();
+            synthesizer.speakPlainText(s, null);
+            synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+            synthesizer.deallocate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
