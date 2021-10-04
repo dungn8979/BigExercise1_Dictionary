@@ -1,0 +1,31 @@
+.background {
+    -fx-background-color: linear-gradient(to bottom, #490B38, #E70EEA);
+}
+
+.background_item {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+
+.text_all {
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+}
+
+.text_input {
+    -fx-prompt-text-fill: #D4CEE3;
+    -fx-background-radius: 20;
+    -fx-background-color: white;
+}
+
+.label_menu {
+    -fx-text-fill: #F547DA;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+#label_new {
+    -fx-text-fill: #F547DA;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}

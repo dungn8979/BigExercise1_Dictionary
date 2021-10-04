@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@full_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Solution.controller_main">
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="10.0" />
+            </BorderPane.margin>
+            <children>
+                <HBox alignment="CENTER" onMouseClicked="#event_new" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/icons8_add_25px.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="New" textFill="#f547da">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" onMouseClicked="#event_edit" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/icons8_edit_25px_1.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Edit" textFill="#f547da">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" onMouseClicked="#event_delete" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/icons8_delete_trash_25px.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Delete" textFill="#f547da">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            <HBox alignment="CENTER" onMouseClicked="#event_exit" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/icons8_exit_25px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Exit" textFill="#f547da">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            </children>
+        </HBox>
+    </bottom>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <top>
+        <ImageView fitHeight="50.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="10.0" />
+            </BorderPane.margin>
+            <image>
+                <Image url="@image/DictionaryGaoranger.png" />
+            </image>
+        </ImageView>
+    </top>
+    <left>
+        <VBox prefWidth="200.0" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets right="10.0" />
+            </BorderPane.margin>
+            <children>
+                <AnchorPane prefHeight="20.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="textField_target" prefHeight="25.0" prefWidth="200.0" promptText="English">
+                     <styleClass>
+                        <String fx:value="text_all" />
+                        <String fx:value="text_input" />
+                     </styleClass></TextField>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="170.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/icons8_search_25px.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane styleClass="background_item" stylesheets="@full_style.css">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="491.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="79.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="label_target" styleClass="background_item" stylesheets="@full_style.css" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
