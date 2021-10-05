@@ -32,7 +32,7 @@
                                 <Image url="@image/icons8_add_25px.png" />
                             </image>
                         </ImageView>
-                        <Label text="New" textFill="#f547da">
+                        <Label styleClass="label_menu" stylesheets="@full_style.css" text="New" textFill="#f547da">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -46,7 +46,7 @@
                                 <Image url="@image/icons8_edit_25px_1.png" />
                             </image>
                         </ImageView>
-                        <Label text="Edit" textFill="#f547da">
+                        <Label styleClass="label_menu" stylesheets="@full_style.css" text="Edit" textFill="#f547da">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -60,7 +60,7 @@
                                 <Image url="@image/icons8_delete_trash_25px.png" />
                             </image>
                         </ImageView>
-                        <Label text="Delete" textFill="#f547da">
+                        <Label styleClass="label_menu" stylesheets="@full_style.css" text="Delete" textFill="#f547da">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -74,7 +74,7 @@
                         <Image url="@image/icons8_exit_25px.png" />
                      </image>
                   </ImageView>
-                  <Label text="Exit" textFill="#f547da">
+                  <Label styleClass="label_menu" stylesheets="@full_style.css" text="Exit" textFill="#f547da">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -93,19 +93,19 @@
                 <Insets bottom="10.0" />
             </BorderPane.margin>
             <image>
-                <Image url="@image/DictionaryGaoranger.png" />
+                <Image url="@image/image_dictionary_gaoranger.png" />
             </image>
         </ImageView>
     </top>
     <left>
-        <VBox prefWidth="200.0" BorderPane.alignment="CENTER">
+        <VBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets right="10.0" />
             </BorderPane.margin>
             <children>
                 <AnchorPane prefHeight="20.0" prefWidth="200.0">
                     <children>
-                        <TextField fx:id="textField_target" prefHeight="25.0" prefWidth="200.0" promptText="English">
+                        <TextField fx:id="textField_target" prefHeight="25.0" prefWidth="200.0" promptText="Enter you word">
                      <styleClass>
                         <String fx:value="text_all" />
                         <String fx:value="text_input" />
@@ -117,11 +117,16 @@
                         </ImageView>
                     </children>
                 </AnchorPane>
+            <TableView fx:id="tableView" prefHeight="1000.0" prefWidth="200.0" styleClass="background_item" stylesheets="@full_style.css">
+               <columns>
+                  <TableColumn fx:id="col_target" minWidth="0.0" prefWidth="198.0" text="Word" />
+               </columns>
+            </TableView>
             </children>
         </VBox>
     </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
+      <VBox prefWidth="100.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
          <children>
             <GridPane styleClass="background_item" stylesheets="@full_style.css">
               <columnConstraints>

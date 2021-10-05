@@ -22,7 +22,7 @@
                         <Image url="@image/icons8_save_25px.png" />
                      </image>
                   </ImageView>
-                  <Label text="Save" textFill="#f547da">
+                  <Label styleClass="label_menu" stylesheets="@full_style.css" text="Save" textFill="#f547da">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Image url="@image/icons8_exit_25px.png" />
                      </image>
                   </ImageView>
-                  <Label text="Cancel" textFill="#f547da">
+                  <Label styleClass="label_menu" stylesheets="@full_style.css" text="Cancel" textFill="#f547da">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -55,7 +55,7 @@
             <Insets bottom="10.0" />
          </BorderPane.margin>
          <image>
-            <Image url="@image/DictionaryGaoranger.png" />
+            <Image url="@image/image_dictionary_gaoranger.png" />
          </image>
       </ImageView>
    </top>

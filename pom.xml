@@ -121,7 +121,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                solution.bigexercise1_dictionary/solution.bigexercise1_dictionary.HelloApplication
+                                Solution.dictionaryApplication
                             </mainClass>
                         </configuration>
                     </execution>

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class controller_option {
     private double xOffset = 0;
     private double yOffset = 0;
-    Stage stage = new Stage();
+    Stage stage;
 
     @FXML
     public void event_save(MouseEvent event) throws IOException {

@@ -1,34 +1,49 @@
 package Solution;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Solution.Word;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class controller_main {
+public class controller_main implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
-    Stage stage = new Stage();
+    Stage stage;
+    DictionaryManagement dic_management;
 
     @FXML
     TextField textField_target;
     @FXML
     Label label_target;
+    @FXML
+    TableView<Word> tableView;
+    @FXML
+    TableColumn<Word, String> col_target;
+    @FXML
+    ObservableList<Word> obs_list_word;
 
     @FXML
     private void event_search(MouseEvent event) {
         if (textField_target.getText().trim() != null) {
-            search(textField_target.getText().trim());
+            lookup(textField_target.getText().trim());
         }
     }
 
@@ -82,8 +97,32 @@ public class controller_main {
         System.exit(0);
     }
 
-    public Word search(String target) {
+    public Word lookup(String target) {
 
         return new Word();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            dic_management.insertFromFile();
+        } catch (Exception exp) {
+            System.out.println("dic_management.insertFromFile() ERROR");
+        }
+
+        init_load_table();
+    }
+
+    void init_load_table() {
+        // init
+        // init column
+        col_target.setCellValueFactory(new PropertyValueFactory<>("word_target"));
+
+        // load data to ObservableList
+        obs_list_word = FXCollections.observableArrayList();
+        obs_list_word.add(new Word("English", "Tiếng Việt"));
+
+        // load Observable to tableView
+        tableView.setItems(obs_list_word);
     }
 }
