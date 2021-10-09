@@ -21,29 +21,44 @@ import Solution.Word;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class controller_main implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
     Stage stage;
-    DictionaryManagement dic_management;
+    DictionaryManagement dic_management = new DictionaryManagement();
+    AccessSQL accessSQL = new AccessSQL("dictionary", "root", "");
 
     @FXML
-    TextField textField_target;
+    TextField texFie_target;
     @FXML
-    Label label_target;
+    Label lab_target;
     @FXML
-    TableView<Word> tableView;
+    Label lab_detail;
+    @FXML
+    TableView<Word> tab_view;
     @FXML
     TableColumn<Word, String> col_target;
-    @FXML
-    ObservableList<Word> obs_list_word;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ResultSet resultSet = accessSQL.getDataBase("select * from tbl_edict");
+        try {
+            dic_management.insertFromFile("dictionary.txt");
+        } catch (Exception exp) {
+            System.out.println("dic_management.insertFromFile() ERROR");
+            exp.printStackTrace();
+        }
+
+        init_load_table();
+    }
 
     @FXML
     private void event_search(MouseEvent event) {
-        if (textField_target.getText().trim() != null) {
-            lookup(textField_target.getText().trim());
+        if (texFie_target.getText().trim() != null) {
+            lookup(texFie_target.getText().trim());
         }
     }
 
@@ -102,27 +117,16 @@ public class controller_main implements Initializable {
         return new Word();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            dic_management.insertFromFile();
-        } catch (Exception exp) {
-            System.out.println("dic_management.insertFromFile() ERROR");
-        }
-
-        init_load_table();
-    }
-
     void init_load_table() {
         // init
         // init column
         col_target.setCellValueFactory(new PropertyValueFactory<>("word_target"));
 
         // load data to ObservableList
-        obs_list_word = FXCollections.observableArrayList();
+        ObservableList<Word> obs_list_word = FXCollections.observableArrayList();
         obs_list_word.add(new Word("English", "Tiếng Việt"));
 
         // load Observable to tableView
-        tableView.setItems(obs_list_word);
+        tab_view.setItems(obs_list_word);
     }
 }

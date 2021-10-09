@@ -13,13 +13,13 @@
 }
 
 .text_input {
-    -fx-prompt-text-fill: #109CF9;
+    -fx-prompt-text-fill: black;
     -fx-background-radius: 20;
     -fx-background-color: white;
 }
 
 .label {
-    -fx-text-fill: #109CF9;
+    -fx-text-fill: black;
     -fx-font-size: 12;
 }
 
@@ -37,16 +37,4 @@
 .table-view .column-header, .table-view .column-header .label {
     -fx-text-fill: #109CF9;
     -fx-background-color: transparent;
-}
-
-.table-view {
-    -fx-text-fill: #109CF9;
-}
-
-.table-view-header {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-item {
-    -fx-text-fill: #109CF9;
 }

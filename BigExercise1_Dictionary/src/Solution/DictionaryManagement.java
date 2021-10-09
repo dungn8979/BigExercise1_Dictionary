@@ -17,43 +17,57 @@ public class DictionaryManagement {
     List<Word> dictionary_list = new ArrayList<Word>();
 
     /**
-     * nhap tu dien tu file
+     * để file ở ngoài cùng project.
+     * @param path String
+     * @return isSuccess
      * @throws FileNotFoundException
      */
+    public boolean  insertFromFile(String path) throws FileNotFoundException {
+        boolean success = true;
+        try {
+            File file = new File(path);
+            Scanner scanner = new Scanner(file);
+            String temp;
+            String targetTemp;
+            String explainTemp;
 
-    public void  insertFromFile() throws FileNotFoundException {
-        File file = new File("dictionary.txt");
-        Scanner scanner = new Scanner(file);
-        String temp;
-        String targetTemp;
-        String explainTemp;
-
-        while (scanner.hasNextLine()) {
-            temp = scanner.nextLine();
-            Scanner scanner1 = new Scanner(temp).useDelimiter("\t");
-            targetTemp = scanner1.next();
-            explainTemp = scanner1.next();
-            Word word = new Word(targetTemp,explainTemp);
-            dictionary_list.add(word);
-            scanner1.close();
+            while (scanner.hasNextLine()) {
+                temp = scanner.nextLine();
+                Scanner scanner1 = new Scanner(temp).useDelimiter("\t");
+                targetTemp = scanner1.next();
+                explainTemp = scanner1.next();
+                Word word = new Word(targetTemp,explainTemp);
+                dictionary_list.add(word);
+                scanner1.close();
+            }
+            scanner.close();
+        } catch (Exception exp) {
+            success = false;
+            System.out.println(exp.toString());
         }
-        scanner.close();
+        return success;
     }
 
     /**
-     * xuat tu dien ra file
+     * xuat tu dien ra file path
      * @throws IOException
      */
-
-    public void exportToFile() throws IOException {
-        File file = new File("directories.txt");
-        OutputStream outputStream = new FileOutputStream(file);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-        for (Word item: dictionary_list) {
-            outputStreamWriter.write(item.getWord_target() + "\t" + item.getWord_explain());
-            outputStreamWriter.write("\n");
+    public boolean exportToFile(String path) throws IOException {
+        boolean success = true;
+        try {
+            File file = new File(path);
+            OutputStream outputStream = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            for (Word item: dictionary_list) {
+                outputStreamWriter.write(item.getWord_target() + "\t" + item.getWord_explain());
+                outputStreamWriter.write("\n");
+            }
+            outputStreamWriter.flush();
+        } catch (Exception exp) {
+            success = false;
+            System.out.println(exp.toString());
         }
-        outputStreamWriter.flush();
+        return success;
     }
 
     /**
