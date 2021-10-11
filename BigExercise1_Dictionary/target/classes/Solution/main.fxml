@@ -25,56 +25,56 @@
                 <Insets top="10.0" />
             </BorderPane.margin>
             <children>
-                <HBox alignment="CENTER" onMouseClicked="#event_new" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#Event_New" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@image/icons8_add_25px.png" />
                             </image>
                         </ImageView>
-                        <Label styleClass="label_menu" stylesheets="@full_style.css" text="New" textFill="#f547da">
+                        <Label onMouseClicked="#Event_New" styleClass="label_menu" stylesheets="@full_style.css" text="New" textFill="#f547da">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" onMouseClicked="#event_edit" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#Event_Edit" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@image/icons8_edit_25px_1.png" />
                             </image>
                         </ImageView>
-                        <Label styleClass="label_menu" stylesheets="@full_style.css" text="Edit" textFill="#f547da">
+                        <Label onMouseClicked="#Event_Edit" styleClass="label_menu" stylesheets="@full_style.css" text="Edit" textFill="#f547da">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" onMouseClicked="#event_delete" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#Event_Delete" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@image/icons8_delete_trash_25px.png" />
                             </image>
                         </ImageView>
-                        <Label styleClass="label_menu" stylesheets="@full_style.css" text="Delete" textFill="#f547da">
+                        <Label onMouseClicked="#Event_Delete" styleClass="label_menu" stylesheets="@full_style.css" text="Delete" textFill="#f547da">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#event_exit" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                <children>
-                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="23.0" onMouseClicked="#Event_Exit" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/icons8_exit_25px.png" />
                      </image>
                   </ImageView>
-                  <Label styleClass="label_menu" stylesheets="@full_style.css" text="Exit" textFill="#f547da">
+                  <Label onMouseClicked="#Event_Exit" styleClass="label_menu" stylesheets="@full_style.css" text="Exit" textFill="#f547da">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -105,19 +105,19 @@
             <children>
                 <AnchorPane prefHeight="20.0" prefWidth="200.0">
                     <children>
-                        <TextField fx:id="texFie_target" prefHeight="25.0" prefWidth="200.0" promptText="Enter you word">
+                        <TextField fx:id="texFie_target" onKeyPressed="#EventKeyPress_TextField" onKeyTyped="#EventKeyPress_TextField" prefWidth="200.0" promptText="Enter you word">
                      <styleClass>
                         <String fx:value="text_all" />
                         <String fx:value="text_input" />
                      </styleClass></TextField>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="170.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="166.0" layoutY="6.0" onMouseClicked="#Event_Search" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@image/icons8_search_25px.png" />
                             </image>
                         </ImageView>
                     </children>
                 </AnchorPane>
-            <TableView fx:id="tab_view" prefHeight="1000.0" prefWidth="200.0" styleClass="background_item" stylesheets="@full_style.css">
+            <TableView fx:id="tab_view" onMouseClicked="#Event_SelectItemProperty_TableView" prefHeight="1000.0" prefWidth="200.0" styleClass="background_item" stylesheets="@full_style.css">
                <columns>
                   <TableColumn fx:id="col_target" minWidth="0.0" prefWidth="198.0" text="Word" />
                </columns>
@@ -128,23 +128,46 @@
    <center>
       <VBox prefWidth="100.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
          <children>
-            <GridPane styleClass="background_item" stylesheets="@full_style.css">
+            <GridPane alignment="CENTER" prefHeight="51.0" prefWidth="560.0" styleClass="background_item" stylesheets="@full_style.css">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="491.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="79.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="450.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="110.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="lab_target" styleClass="background_item" stylesheets="@full_style.css" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#Event_SpeakUS" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/icons8_sound_20px.png" />
+                            </image>
+                           <HBox.margin>
+                              <Insets top="3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label styleClass="label_display" stylesheets="@full_style.css" text="US" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
             </GridPane>
-            <Label fx:id="lab_detail" stylesheets="@full_style.css" text="Label" />
+            <ScrollPane hbarPolicy="NEVER" prefViewportHeight="423.0" prefViewportWidth="560.0" styleClass="background_item" stylesheets="@full_style.css">
+               <content>
+                  <Label fx:id="lab_detail" prefWidth="560.0" styleClass="label_detail" stylesheets="@full_style.css" />
+               </content>
+            </ScrollPane>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </center>
 </BorderPane>

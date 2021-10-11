@@ -1,37 +1,48 @@
 package Solution;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class AccessSQL {
     private Connection connection;
 
+    /**
+     * Connect DataBase.
+     *
+     * @param url String
+     * @param database_name String
+     * @param username String
+     * @param password String
+     */
     public AccessSQL(String url, String database_name, String username, String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url + database_name, username, password);
             if (connection != null) {
-                System.out.println("Successfully");
+                System.out.println("Connect Database successfully");
             }
         }
         catch (Exception exp) {
-            System.out.println("Connect fail");
+            System.out.println("Connect Database fail");
             exp.printStackTrace();
         }
     }
 
+    /**
+     * Connect DataBase.
+     * @param database_name String
+     * @param username String
+     * @param password String
+     */
     public AccessSQL(String database_name, String username, String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost/" + database_name, username, password);
             if (connection != null) {
-                System.out.println("Successfully");
+                System.out.println("Connect Database successfully");
             }
         }
         catch (Exception exp) {
-            System.out.println("Connect fail");
+            System.out.println("Connect Database fail");
             exp.printStackTrace();
         }
     }
@@ -39,7 +50,7 @@ public class AccessSQL {
     public void setDataBase(String sql) {
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery(sql);
+            statement.executeUpdate(sql);
             System.out.println("setDataBase success");
         } catch (Exception exp) {
             System.out.println("setDataBase fail");
@@ -47,6 +58,12 @@ public class AccessSQL {
         }
     }
 
+    /**
+     * lấy dữ liệu ResultSet luôn phải có resultSet.next() để không bị lỗi.
+     *
+     * @param sql String
+     * @return resultSet
+     */
     public ResultSet getDataBase(String sql) {
         ResultSet resultSet = null;
         try {
