@@ -1,6 +1,5 @@
 package Solution;
 
-import com.sun.speech.freetts.en.us.FeatureProcessors;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -25,18 +23,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class controller_main implements Initializable {
+public class Controller_Main implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
     Stage stage;
-    DictionaryManagement dic_management = new DictionaryManagement();
-    AccessSQL accessSQL = new AccessSQL("dictionary", "root", "");
+    DictionaryManagement dic_management;
+    AccessSQL accessSQL;
 
     @FXML
     public TextField texFie_target;
@@ -53,16 +50,14 @@ public class controller_main implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            dic_management.insertFromFile("dictionary.txt");
-        } catch (Exception exp) {
-            System.out.println("dic_management.insertFromFile() ERROR");
-            exp.printStackTrace();
-        }
-
+        dic_management = new DictionaryManagement();
+        accessSQL = new AccessSQL("dictionary", "root", "");
         LoadDataTable();
     }
 
+    /**
+     * Load data to display Dictionary List
+     */
     void LoadDataTable() {
         // init
         // init column
@@ -70,7 +65,7 @@ public class controller_main implements Initializable {
         col_target.setCellValueFactory(new PropertyValueFactory<>("word_target"));
 
         // load data to ObservableList
-        ResultSet resultSet = accessSQL.getDataBase("select * from tbl_edict");
+        ResultSet resultSet = accessSQL.getDataBase("SELECT * FROM `tbl_edict`      ");
         while (true) {
             try {
                 if (!resultSet.next()) break;
@@ -85,10 +80,15 @@ public class controller_main implements Initializable {
         tab_view.setItems(obs_list_word);
     }
 
-    public String Lookup(String target) throws SQLException {
-        target = texFie_target.getText().trim();
+    /**
+     * Lookup in DataBase by SQL
+     * @param target
+     * @return detail
+     * @throws SQLException
+     */
+    private String Lookup(String target) throws SQLException {
         if (target != null) {
-            ResultSet resultSet = accessSQL.getDataBase("select * from tbl_edict where `word`='" + target + "'");
+            ResultSet resultSet = accessSQL.getDataBase("SELECT * FROM `tbl_edict` WHERE `word`='" + target + "'");
             if (resultSet.next()) {
                 return resultSet.getString("detail").trim();
             }
@@ -97,7 +97,8 @@ public class controller_main implements Initializable {
     }
 
     @FXML
-    private void EventKeyPress_TextField(KeyEvent event) throws SQLException, ClassNotFoundException, InstantiationException {
+    private void EventKeyPress_TextField(KeyEvent event) throws SQLException {
+        // Lookup
         if (event.getCode().equals(KeyCode.ENTER)) {
             String target = texFie_target.getText().trim();
             String detail = Lookup(target);
@@ -108,6 +109,7 @@ public class controller_main implements Initializable {
             }
             lab_detail.setText(detail);
         } else {
+            // Search text input
             String target = texFie_target.getText().trim();
             if (!target.isEmpty()) {
                 System.out.println(target);
@@ -125,7 +127,7 @@ public class controller_main implements Initializable {
     }
 
     @FXML
-    private void Event_Search(MouseEvent event) throws SQLException, ClassNotFoundException, InstantiationException {
+    private void Event_Search(MouseEvent event) throws SQLException {
         String target = texFie_target.getText().trim();
         String detail = Lookup(target);
         if (target != null) {
@@ -138,10 +140,10 @@ public class controller_main implements Initializable {
 
     @FXML
     public void Event_New(MouseEvent event) throws IOException {
-        // load du lieu option.fxml vao
-        Parent root = FXMLLoader.load(getClass().getResource("option.fxml"));
+        // Open Display Option.fxml
+        Parent root = FXMLLoader.load(getClass().getResource("Option.fxml"));
 
-        // di chuyen man hinh theo chuot
+        // Move Display follow Mouse
         root.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();
@@ -158,16 +160,18 @@ public class controller_main implements Initializable {
 
     @FXML
     public void Event_Edit(MouseEvent event) throws IOException {
+        // Open Display Option.fxml
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("option.fxml"));
+        loader.setLocation(getClass().getResource("Option.fxml"));
         Parent root = loader.load();
 
-        controller_option controller = loader.getController();
+        // Transmit data between scenes
+        Controller_Option controller = loader.getController();
         controller.texFie_target.setText(texFie_target.getText().trim());
         controller.texAre_detail.setText(lab_detail.getText().trim());
 
-        // di chuyen man hinh theo chuot
+        // Move Display follow Mouse
         root.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();
@@ -199,7 +203,6 @@ public class controller_main implements Initializable {
         if (result.get() == btnYes) {
             accessSQL.setDataBase("DELETE FROM tbl_edict WHERE `word`='" + texFie_target.getText().trim() + "'");
 
-            // cần tối ưu
             LoadDataTable();
 
             lab_target.setText(null);

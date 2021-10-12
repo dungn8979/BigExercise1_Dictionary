@@ -5,10 +5,19 @@ import java.sql.*;
 public class AccessSQL {
     private Connection connection;
 
+    // Getter and Setter
+    public Connection getConnection() {
+        return connection;
+    }
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
     /**
+     * Constructor.
      * Connect DataBase.
      *
-     * @param url String
+     * @param url String Ex: "jdbc:mysql://localhost/"
      * @param database_name String
      * @param username String
      * @param password String
@@ -28,6 +37,7 @@ public class AccessSQL {
     }
 
     /**
+     * Constructor.
      * Connect DataBase.
      * @param database_name String
      * @param username String
@@ -61,7 +71,7 @@ public class AccessSQL {
     /**
      * lấy dữ liệu ResultSet luôn phải có resultSet.next() để không bị lỗi.
      *
-     * @param sql String
+     * @param sql
      * @return resultSet
      */
     public ResultSet getDataBase(String sql) {
@@ -75,13 +85,5 @@ public class AccessSQL {
             exp.printStackTrace();
         }
         return resultSet;
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
     }
 }

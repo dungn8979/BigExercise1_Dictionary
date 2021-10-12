@@ -6,7 +6,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import javax.speech.Engine;
 import javax.speech.Central;
-import javax.speech.EngineException;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.Synthesizer;
 

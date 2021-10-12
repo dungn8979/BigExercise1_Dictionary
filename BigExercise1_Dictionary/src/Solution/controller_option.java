@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class controller_option implements Initializable {
+public class Controller_Option {
     private double xOffset = 0;
     private double yOffset = 0;
     private Stage stage;
@@ -28,24 +28,15 @@ public class controller_option implements Initializable {
     @FXML
     public TextArea texAre_detail;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
-    public void init(Word word) {
-        System.out.println("into initialize");
-        try{
-            texFie_target.setText(word.getWord_target());
-        } catch (Exception e) {
-            System.out.println("initialize error");
-        }
-        System.out.println("finish initialize");
-    }
-
-    private String Lookup() throws SQLException {
-        String str_target = texFie_target.getText().trim();
-        if (str_target != null) {
-            ResultSet resultSet = accessSQL.getDataBase("select * from tbl_edict where `word`='" + str_target + "'");
+    /**
+     * Lookup in DataBase by SQL
+     * @param target
+     * @return detail
+     * @throws SQLException
+     */
+    private String Lookup(String target) throws SQLException {
+        if (target != null) {
+            ResultSet resultSet = accessSQL.getDataBase("SELECT * FROM tbl_edict WHERE `word`='" + target + "'");
             if (resultSet.next()) {
                 return resultSet.getString("detail").trim();
             }
@@ -55,26 +46,25 @@ public class controller_option implements Initializable {
 
     @FXML
     public void Event_Save(MouseEvent event) throws IOException, SQLException {
-        // lưu dữ liệu vào DataBase
+        // Save data into DataBase
         String save_target = texFie_target.getText().trim();
         String save_detail = texAre_detail.getText().trim();
-        if (Lookup() != null) {
+        if (Lookup(texFie_target.getText().trim()) != null) {
             accessSQL.setDataBase("DELETE FROM tbl_edict WHERE `word`='" + save_target + "'");
             accessSQL.setDataBase("INSERT INTO tbl_edict (`id`, `word`, `target`) VALUES ('0','"+save_target+"','"+save_detail+"'");
         }
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("main.fxml"));
+        loader.setLocation(getClass().getResource("Main.fxml"));
         Parent root = loader.load();
-        //Parent root = FXMLLoader.load(getClass().getResource("main.fxml")) -> không set controller_main được
 
-        // set texFie_target, lab_target, lab_detail cho controller_main
-        controller_main controller = loader.getController();
+        // Transmit data between scenes
+        Controller_Main controller = loader.getController();
         controller.texFie_target.setText(texFie_target.getText().trim());
         controller.lab_target.setText(texFie_target.getText().trim());
         controller.lab_detail.setText(texAre_detail.getText().trim());
 
-        // di chuyen man hinh theo chuot
+        // move Display follow Mouse
         root.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();
@@ -84,6 +74,7 @@ public class controller_option implements Initializable {
             stage.setY(mouseEvent.getScreenY() - yOffset);
         });
 
+        // Load stage
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
@@ -91,9 +82,10 @@ public class controller_option implements Initializable {
 
     @FXML
     public void Event_Cancel(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        // back to Display Main.fxml
+        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
-        // di chuyen man hinh theo chuot
+        // Move Display follow Mouse
         root.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();

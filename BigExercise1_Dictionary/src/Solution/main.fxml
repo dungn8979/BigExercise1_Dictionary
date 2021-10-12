@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@full_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Solution.controller_main">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@full_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Solution.Controller_Main">
     <bottom>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
             <BorderPane.margin>

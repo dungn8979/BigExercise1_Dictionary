@@ -4,7 +4,7 @@ public class Word {
     private String word_target;
     private String word_explain;
 
-    public Word(){
+    public Word() {
     }
 
     public Word(String word_target, String word_explain) {
