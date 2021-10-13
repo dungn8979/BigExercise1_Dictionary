@@ -138,9 +138,13 @@ public class DictionaryManagement {
      * @return list tu search duoc
      */
     public List<Word> dictionarySearch(String search) {
-        List<Word> matchElement = dictionary_list.stream()
-                .filter(str -> str.getWord_target().contains(search))
-                .collect(Collectors.toList());
+        List<Word> matchElement = new ArrayList<Word>();
+        for (Word item: dictionary.wordList) {
+            int index = item.getWord_target().indexOf(search);
+            if (index == 0) {
+                matchElement.add(item);
+            }
+        }
         return matchElement;
     }
 
