@@ -33,7 +33,7 @@ public class Controller_Main implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
     Stage stage;
-    DictionaryManagement dic_management;
+    DictionaryManagement dictionaryManagement;
     AccessSQL accessSQL;
 
     @FXML
@@ -51,7 +51,7 @@ public class Controller_Main implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dic_management = new DictionaryManagement();
+        dictionaryManagement = new DictionaryManagement();
         accessSQL = new AccessSQL("dictionary", "root", "");
         System.out.println("init controller main");
         LoadDataTable();
@@ -242,18 +242,7 @@ public class Controller_Main implements Initializable {
     @FXML
     public void Event_SpeakUS(MouseEvent event) {
         if (!lab_target.getText().trim().isEmpty()) {
-            try {
-                System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-                Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
-                Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
-                synthesizer.allocate();
-                synthesizer.resume();
-                synthesizer.speakPlainText(lab_target.getText().trim(), null);
-                synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-                synthesizer.deallocate();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            dictionaryManagement.speakEnglish(lab_target.getText().trim());
         }
     }
 }
