@@ -57,6 +57,10 @@ public class AccessSQL {
         }
     }
 
+    public void Close() throws SQLException {
+        connection.close();
+    }
+
     public void setDataBase(String sql) {
         try {
             Statement statement = connection.createStatement();

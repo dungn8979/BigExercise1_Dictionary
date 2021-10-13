@@ -105,7 +105,7 @@
             <children>
                 <AnchorPane prefHeight="20.0" prefWidth="200.0">
                     <children>
-                        <TextField fx:id="texFie_target" onKeyTyped="#EventKeyPress_TextField" prefWidth="200.0" promptText="Enter you word">
+                        <TextField fx:id="texFie_target" onKeyPressed="#EventKeyPress_TextField" onKeyTyped="#EventKeyPress_TextField" prefWidth="200.0" promptText="Enter you word">
                      <styleClass>
                         <String fx:value="text_all" />
                         <String fx:value="text_input" />

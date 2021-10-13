@@ -4,7 +4,7 @@
 - Bùi Đình Khá 20020424
 - Nguyễn Sỹ Hùng 20020416
 + Version:
-- Present: 1.1
+- Present: 1.2
 - JDK: jdk-17
 
 > FOR RUN

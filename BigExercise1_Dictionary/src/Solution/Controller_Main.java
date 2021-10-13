@@ -53,6 +53,7 @@ public class Controller_Main implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dic_management = new DictionaryManagement();
         accessSQL = new AccessSQL("dictionary", "root", "");
+        System.out.println("init controller main");
         LoadDataTable();
     }
 
@@ -66,7 +67,7 @@ public class Controller_Main implements Initializable {
         col_target.setCellValueFactory(new PropertyValueFactory<>("word_target"));
 
         // load data to ObservableList
-        ResultSet resultSet = accessSQL.getDataBase("SELECT * FROM `tbl_edict`      ");
+        ResultSet resultSet = accessSQL.getDataBase("SELECT * FROM `tbl_edict`");
         while (true) {
             try {
                 if (!resultSet.next()) break;
@@ -98,6 +99,23 @@ public class Controller_Main implements Initializable {
         return null;
     }
 
+    public void Sort_TableView() {
+        String target = texFie_target.getText().trim();
+        if (!target.isEmpty()) {
+            System.out.println(target);
+            ObservableList<Word> obs_match_word = FXCollections.observableArrayList();
+            obs_match_word.addAll(obs_list_word.stream()
+                    .filter(str -> str.getWord_target().contains(target))
+                    .collect(Collectors.toList()));
+
+            // load Observable to tableView
+            if (obs_match_word != null) {
+                Collections.sort(obs_match_word,Word::compareTo);
+                tab_view.setItems(obs_match_word);
+            }
+        } else tab_view.setItems(obs_list_word);
+    }
+
     @FXML
     private void EventKeyPress_TextField(KeyEvent event) throws SQLException {
         // Lookup
@@ -111,21 +129,7 @@ public class Controller_Main implements Initializable {
             }
             lab_detail.setText(detail);
         } else {
-            // Search text input
-            String target = texFie_target.getText().trim();
-            if (!target.isEmpty()) {
-                System.out.println(target);
-                ObservableList<Word> obs_match_word = FXCollections.observableArrayList();
-                obs_match_word.addAll(obs_list_word.stream()
-                        .filter(str -> str.getWord_target().contains(target))
-                        .collect(Collectors.toList()));
-
-                // load Observable to tableView
-                if (obs_match_word != null) {
-                    Collections.sort(obs_match_word,Word::compareTo);
-                    tab_view.setItems(obs_match_word);
-                }
-            } else tab_view.setItems(obs_list_word);
+            Sort_TableView();
         }
     }
 
@@ -142,7 +146,7 @@ public class Controller_Main implements Initializable {
     }
 
     @FXML
-    public void Event_New(MouseEvent event) throws IOException {
+    public void Event_New(MouseEvent event) throws IOException, SQLException {
         // Open Display Option.fxml
         Parent root = FXMLLoader.load(getClass().getResource("Option.fxml"));
 
@@ -156,13 +160,15 @@ public class Controller_Main implements Initializable {
             stage.setY(mouseEvent.getScreenY() - yOffset);
         });
 
+        // Load new Display
+        accessSQL.Close();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
-    public void Event_Edit(MouseEvent event) throws IOException {
+    public void Event_Edit(MouseEvent event) throws IOException, SQLException {
         // Open Display Option.fxml
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
@@ -184,27 +190,32 @@ public class Controller_Main implements Initializable {
             stage.setY(mouseEvent.getScreenY() - yOffset);
         });
 
+        // Load new Display
+        accessSQL.Close();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
-    public void Event_Delete(MouseEvent event) {
+    public void Event_Delete(MouseEvent event) throws SQLException {
+        // Create window Alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Notify");
         alert.setHeaderText(null);
         alert.setContentText("Do you want delete \"" + texFie_target.getText().trim() + "\"");
 
         ButtonType btnYes = new ButtonType("Yes",ButtonBar.ButtonData.YES);
-        ButtonType btnNo = new ButtonType("No",ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("No",ButtonBar.ButtonData.NO);
 
         alert.getButtonTypes().clear();
         alert.getButtonTypes().addAll(btnYes, btnNo);
 
         Optional<ButtonType> result = alert.showAndWait();
+
+        // Confirm optional
         if (result.get() == btnYes) {
-            accessSQL.setDataBase("DELETE FROM tbl_edict WHERE `word`='" + texFie_target.getText().trim() + "'");
+            accessSQL.setDataBase("DELETE FROM `tbl_edict` WHERE `word`='" + texFie_target.getText().trim() + "'");
 
             LoadDataTable();
 
@@ -214,7 +225,8 @@ public class Controller_Main implements Initializable {
     }
 
     @FXML
-    public void Event_Exit(MouseEvent event) {
+    public void Event_Exit(MouseEvent event) throws SQLException {
+        accessSQL.Close();
         Platform.exit();
         System.exit(0);
     }
