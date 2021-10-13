@@ -157,7 +157,6 @@ public class DictionaryManagement {
             synthesizer.resume();
             synthesizer.speakPlainText(s, null);
             synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-            synthesizer.deallocate();
         } catch (Exception e) {
             e.printStackTrace();
         }
