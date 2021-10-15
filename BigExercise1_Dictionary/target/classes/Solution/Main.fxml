@@ -126,9 +126,10 @@
         </VBox>
     </left>
    <center>
-      <VBox prefWidth="100.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
+      <VBox prefWidth="100.0" spacing="5.0" styleClass="background_item" stylesheets="@full_style.css" BorderPane.alignment="CENTER">
          <children>
-            <GridPane alignment="CENTER" prefHeight="51.0" prefWidth="560.0" styleClass="background_item" stylesheets="@full_style.css">
+            <Label styleClass="label_display" stylesheets="@full_style.css" text="Target" />
+            <GridPane alignment="CENTER" prefWidth="560.0" styleClass="background_item" stylesheets="@full_style.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="470.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="90.0" />
@@ -137,7 +138,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="lab_target" styleClass="background_item" stylesheets="@full_style.css" />
+                  <Label fx:id="lab_target" stylesheets="@full_style.css" />
                   <HBox alignment="CENTER" prefHeight="41.0" prefWidth="115.0" spacing="5.0" GridPane.columnIndex="1">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#Event_SpeakUS" pickOnBounds="true" preserveRatio="true">
@@ -156,14 +157,17 @@
                   </HBox>
                </children>
             </GridPane>
-            <ScrollPane hbarPolicy="NEVER" prefViewportHeight="423.0" prefViewportWidth="560.0" styleClass="background_item" stylesheets="@full_style.css">
+            <Label styleClass="label_display" stylesheets="@full_style.css" text="Explain" />
+            <Label fx:id="lab_explain" stylesheets="@full_style.css" />
+            <Label styleClass="label_display" stylesheets="@full_style.css" text="Detail" />
+            <ScrollPane hbarPolicy="NEVER" prefHeight="363.0" prefViewportHeight="423.0" prefViewportWidth="560.0" prefWidth="560.0" styleClass="background_item" stylesheets="@full_style.css">
                <content>
                   <Label fx:id="lab_detail" prefWidth="560.0" styleClass="label_detail" stylesheets="@full_style.css" />
                </content>
             </ScrollPane>
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <BorderPane.margin>
             <Insets />

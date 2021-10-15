@@ -128,7 +128,7 @@ public class Controller_Option {
 
         // Load new Display
         accessSQL.Close();
-        controller.Sort_TableView();
+        controller.Search();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

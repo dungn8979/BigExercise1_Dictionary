@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Controller_Main implements Initializable {
@@ -40,6 +37,8 @@ public class Controller_Main implements Initializable {
     public TextField texFie_target;
     @FXML
     Label lab_target;
+    @FXML
+    Label lab_explain;
     @FXML
     public Label lab_detail;
     @FXML
@@ -55,6 +54,18 @@ public class Controller_Main implements Initializable {
         accessSQL = new AccessSQL("dictionary", "root", "");
         System.out.println("init controller main");
         LoadDataTable();
+    }
+
+    public void RefreshDisplay(String target, String explain, String detail) {
+        if (target != null) {
+            lab_target.setText(target);
+            lab_explain.setText(explain);
+            lab_detail.setText(detail);
+        } else {
+            lab_target.setText(null);
+            lab_explain.setText(null);
+            lab_detail.setText(null);
+        }
     }
 
     /**
@@ -99,17 +110,18 @@ public class Controller_Main implements Initializable {
         return null;
     }
 
-    public void Sort_TableView() {
+    public void Search() {
         String target = texFie_target.getText().trim();
         if (!target.isEmpty()) {
-            System.out.println(target);
-            ObservableList<Word> obs_match_word = FXCollections.observableArrayList();
-            obs_match_word.addAll(obs_list_word.stream()
-                    .filter(str -> str.getWord_target().contains(target))
-                    .collect(Collectors.toList()));
+            // Search, update tableView
+            List<Word> list_match = new ArrayList<>();
+            list_match.add(new Word("into", "vao"));
+            ObservableList<Word> obs_match_word = FXCollections.observableArrayList(
+                    dictionaryManagement.dictionarySearch(target, (List<Word>) obs_list_word));
 
             // load Observable to tableView
             if (obs_match_word != null) {
+                System.out.println("obs null");
                 Collections.sort(obs_match_word,Word::compareTo);
                 tab_view.setItems(obs_match_word);
             }
@@ -117,32 +129,22 @@ public class Controller_Main implements Initializable {
     }
 
     @FXML
-    private void EventKeyPress_TextField(KeyEvent event) throws SQLException {
+    private void EventKeyPress_TextField(KeyEvent event) throws SQLException, IOException {
         // Lookup
         if (event.getCode().equals(KeyCode.ENTER)) {
-            String target = texFie_target.getText().trim();
-            String detail = Lookup(target);
-            if (target != null) {
-                lab_target.setText(target);
-            } else {
-                lab_target.setText(null);
-            }
-            lab_detail.setText(detail);
+            RefreshDisplay(texFie_target.getText().trim(),
+                    GGTranslateAPI.translate(texFie_target.getText().trim()),
+                    Lookup(texFie_target.getText().trim()));
         } else {
-            Sort_TableView();
+            Search();
         }
     }
 
     @FXML
-    private void Event_Search(MouseEvent event) throws SQLException {
-        String target = texFie_target.getText().trim();
-        String detail = Lookup(target);
-        if (target != null) {
-            lab_target.setText(target);
-        } else {
-            lab_target.setText(null);
-        }
-        lab_detail.setText(detail);
+    private void Event_Search(MouseEvent event) throws SQLException, IOException {
+        RefreshDisplay(texFie_target.getText().trim(),
+                GGTranslateAPI.translate(texFie_target.getText().trim()),
+                Lookup(texFie_target.getText().trim()));
     }
 
     @FXML
@@ -198,7 +200,7 @@ public class Controller_Main implements Initializable {
     }
 
     @FXML
-    public void Event_Delete(MouseEvent event) throws SQLException {
+    public void Event_Delete(MouseEvent event) throws SQLException, IOException {
         // Create window Alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Notify");
@@ -219,8 +221,7 @@ public class Controller_Main implements Initializable {
 
             LoadDataTable();
 
-            lab_target.setText(null);
-            lab_detail.setText(null);
+            RefreshDisplay(null, null, null);
         }
     }
 
@@ -232,11 +233,14 @@ public class Controller_Main implements Initializable {
     }
 
     @FXML
-    public void Event_SelectItemProperty_TableView(MouseEvent event) {
+    public void Event_SelectItemProperty_TableView(MouseEvent event) throws IOException {
         Word wordSelect = tab_view.getSelectionModel().getSelectedItem();
-        texFie_target.setText(wordSelect.getWord_target());
-        lab_target.setText(wordSelect.getWord_target());
-        lab_detail.setText(wordSelect.getWord_explain());
+        if (wordSelect != null) {
+            texFie_target.setText(wordSelect.getWord_target());
+            lab_target.setText(wordSelect.getWord_target());
+            lab_explain.setText(GGTranslateAPI.translate(wordSelect.getWord_target()));
+            lab_detail.setText(wordSelect.getWord_explain());
+        }
     }
 
     @FXML

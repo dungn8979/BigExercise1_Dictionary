@@ -7,15 +7,19 @@
     -fx-background-radius: 10;
 }
 
-.text_all {
+.text-field {
     -fx-font-size: 14;
     -fx-text-fill: black;
 }
 
 .text_input {
+    -fx-font-size: 14;
     -fx-prompt-text-fill: #888888;
     -fx-background-radius: 20;
     -fx-background-color: white;
+}
+.label {
+    -fx-font-size: 14;
 }
 
 .label_detail {
@@ -25,7 +29,7 @@
 
 .label_display {
     -fx-text-fill: #109CF9;
-    -fx-font-size: 14;
+    -fx-font-size: 16;
 }
 
 

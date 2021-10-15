@@ -137,9 +137,9 @@ public class DictionaryManagement {
      * @param search
      * @return list tu search duoc
      */
-    public List<Word> dictionarySearch(String search) {
+    public List<Word> dictionarySearch(String search, List<Word> listNeedSearch) {
         List<Word> matchElement = new ArrayList<Word>();
-        for (Word item: dictionary.wordList) {
+        for (Word item: listNeedSearch) {
             int index = item.getWord_target().indexOf(search);
             if (index == 0) {
                 matchElement.add(item);
