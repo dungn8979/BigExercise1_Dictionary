@@ -1,0 +1,52 @@
+.background {
+    -fx-background-color: linear-gradient(to bottom, #0D56FF, #109CF9);
+}
+
+.background_item {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+
+.text-field {
+    -fx-font-size: 14;
+    -fx-text-fill: black;
+}
+
+.text_input {
+    -fx-font-size: 14;
+    -fx-prompt-text-fill: #888888;
+    -fx-background-radius: 20;
+    -fx-background-color: white;
+}
+.label {
+    -fx-font-size: 14;
+}
+
+.label_detail {
+    -fx-text-fill: black;
+    -fx-font-size: 14;
+}
+
+.label_display {
+    -fx-text-fill: #109CF9;
+    -fx-font-size: 16;
+}
+
+
+.label_menu {
+    -fx-text-fill: #109CF9;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header-background {
+    -fx-font-size: 14;
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}
+
+.table-view .column-header, .table-view .column-header .label {
+    -fx-font-size: 14;
+    -fx-text-fill: #109CF9;
+    -fx-background-color: transparent;
+}
